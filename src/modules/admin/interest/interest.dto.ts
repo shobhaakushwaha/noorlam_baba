@@ -4,6 +4,9 @@ export class CreateInterestDto {
   @IsNotEmpty()
   @IsString()
   name: string;
+  @IsOptional()
+  @IsString()
+  image?: string;
 }
 
 export class GetInterestQueryDto {

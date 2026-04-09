@@ -36,6 +36,8 @@ export const MESSAGE = {
   UPDATE_INTEREST_SUCCESS: "Interest updated successfully.",
   DELETE_INTEREST_SUCCESS: "Interest deleted successfully.",
   INTEREST_NOT_FOUND: "Interest not found.",
+  INTEREST_EXISTS: "Interest already exists.",
+  INTEREST_LIST: "Interest list retrieved successfully.",
 
  //=====================ORDER===============================
  ORDER_PLACED: "Order placed successfully.",
