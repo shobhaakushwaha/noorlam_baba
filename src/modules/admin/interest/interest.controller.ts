@@ -7,28 +7,86 @@ import {
   Query,
   Delete,
   Param,
+  UploadedFile,
+  UseInterceptors,
+  Res,
 } from '@nestjs/common';
 import { CreateInterestDto, GetInterestQueryDto } from './interest.dto';
 import { InterestService } from './interest.service';
 import { AdminAuthGuard } from '../auth/admin-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+import { NormalResponse } from '../../../helpers/responseHelper';
 
 @Controller('admin/interest')
-@UseGuards(AdminAuthGuard) // ← apply to all routes at once
+@UseGuards(AdminAuthGuard)
 export class InterestController {
   constructor(private readonly interestService: InterestService) {}
 
+  //  CREATE INTEREST
+  // @Post('add')
+  // @UseInterceptors(FileInterceptor('image'))
+  // async createInterest(
+  //   @Body() dto: CreateInterestDto,
+  //   @UploadedFile() file: Express.Multer.File,
+  //   @Res() res: Response,
+  // ) {
+  //   const result = await this.interestService.createInterest(dto, file);
+
+  //   return NormalResponse.send(
+  //     res,
+  //     result?.data || {},
+  //     result?.message,
+  //     result?.statusCode
+  //   );
+  // }
+
+
+
+
   @Post('add')
-  async create(@Body() dto: CreateInterestDto) {
-    return this.interestService.createInterest(dto);
-  }
+@UseInterceptors(FileInterceptor('image'))
+async createInterest(
+  @Body() dto: CreateInterestDto,
+  @UploadedFile() file: Express.Multer.File,
+  @Res() res: Response,
+) {
+  // ✅ Add this debug log temporarily
+  console.log('DTO received:', dto);
+  console.log('File received:', file);
 
+  const result = await this.interestService.createInterest(dto, file);
+
+  return NormalResponse.send(
+    res,
+    result?.data || {},
+    result?.message,
+    result?.statusCode,
+  );
+}
+
+  // GET ALL INTERESTS
   @Get('list')
-  async getAll(@Query() query: GetInterestQueryDto) {
-    return this.interestService.getInterests(query);
+  async getAll(
+    @Query() query: GetInterestQueryDto,
+    @Res() res: Response,
+  ) {
+    const result = await this.interestService.getInterests(query);
+return NormalResponse.send(res, result.data, result.message, result.statusCode);
   }
 
-  @Delete('delete/:id')       // ← route param :id
-  async deleteInterest(@Param('id') id: string) {  // ← @Param not @Query
-    return this.interestService.deleteInterest(id);
+  @Delete('delete/:id')
+  async deleteInterest(
+    @Param('id') id: string,
+    @Res() res: Response,
+  ) {
+    const result = await this.interestService.deleteInterest(id);
+
+    return NormalResponse.send(
+      res,
+      {},
+      result?.message,
+      result?.statusCode
+    );
   }
 }

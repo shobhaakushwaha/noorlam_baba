@@ -16,6 +16,11 @@ async function bootstrap() {
   // Connect DB
   await connectDB();
 
+  // Global Response Format
+
+  // Global Error Handling
+  // app.useGlobalFilters(new HttpExceptionFilter());
+
   // Start server
   const PORT = process.env.PORT || 5000;
   await app.listen(PORT);

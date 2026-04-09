@@ -7,10 +7,11 @@ const InterestSchema = new Schema(
       required: true,
       trim: true,
     },
-    // image: {
-    //   type: String, // store image URL or file path
-    //   required: true,
-    // },
+    image: {
+      type: String, // store image URL or file path
+      // required: true,
+      default: null,
+    },
     status: {
       type: Boolean,
       default: true, // active/inactive

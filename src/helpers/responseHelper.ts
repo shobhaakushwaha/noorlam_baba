@@ -1,61 +1,89 @@
 import { Response } from 'express';
 import { encrypter } from '../utils/cryptoHandler';
 
-const shouldEncrypt: boolean = process.env.ENCRYPTION === 'true';
+const shouldEncrypt = process.env.ENCRYPTION === 'false' ? false : true;
+const shouldEncrypts = false;
 
-interface BoomError {
-  isBoom?: boolean;
-  output?: {
-    payload?: {
-      message?: string;
-    };
-    statusCode?: number;
-  };
-  data?: any;
-}
 
-interface ApiResponse<T = any> {
-  status: number;
-  message: string;
-  data: T;
-}
+export class ResponseHandler {
+  static send(
+    res: Response,
+    data: any,
+    message = 'Success',
+    status = 200,
 
-/**
- * Sends a standardized API response, with optional Boom and encryption handling.
- */
-export const sendResponse = <T = any>(
-  res: Response,
-  data: T | BoomError,
-  message: string = 'Success',
-  status: number = 200
-): Response => {
-  // Handle Boom error structure
-  if ((data as BoomError)?.isBoom && (data as BoomError)?.output?.payload) {
-    const boom = data as BoomError;
+  ) {
+    // Handle Boom-like error
+    if (data?.isBoom && data?.output?.payload) {
+      const {
+        output: { payload, statusCode },
+        data: boomData,
+      } = data;
 
-    return res.status(boom.output!.statusCode || 500).json({
-      status: boom.output!.statusCode,
-      message: boom.output!.payload!.message,
-      data: boom.data || null,
-    });
+      return res.status(statusCode).json({
+        status: statusCode,
+        message: payload.message,
+        data: boomData || null,
+      });
+    }
+
+    const response = { status, message, data };
+
+    return res
+      .status(status)
+      .json(shouldEncrypt ? { data: encrypter({ response }) } : response);
   }
 
-  const response: ApiResponse<T> = { status, message, data: data as T };
+  static normal(
+    res: Response,
+    data: any = {},
+    message = 'Success',
+    status = 200,
+  ) {
+    const response = { status, message, data };
+    return res.status(status).json(response);
+  }
+}
 
-  return res
-    .status(status)
-    .json(shouldEncrypt ? { data: encrypter({ response }) } : response);
-};
 
-/**
- * Sends a basic, non-encrypted response.
- */
-export const normalResponse = <T = any>(
-  res: Response,
-  data: T = {} as T,
-  message: string = 'Success',
-  status: number = 200
-): Response => {
-  const response: ApiResponse<T> = { status, message, data };
-  return res.status(status).json(response);
-};
+
+
+export class NormalResponse {
+  static send(
+    res: Response,
+    data: any,
+    message = 'Success',
+    status = 200,
+
+  ) {
+    // Handle Boom-like error
+    if (data?.isBoom && data?.output?.payload) {
+      const {
+        output: { payload, statusCode },
+        data: boomData,
+      } = data;
+
+      return res.status(statusCode).json({
+        status: statusCode,
+        message: payload.message,
+        data: boomData || null,
+      });
+    }
+
+    const response = { status, message, data };
+
+    return res
+      .status(status)
+      .json(shouldEncrypts ? { data: encrypter({ response }) } : response);
+  }
+
+  static normal(
+    res: Response,
+    data: any = {},
+    message = 'Success',
+    status = 200,
+  ) {
+    const response = { status, message, data };
+    return res.status(status).json(response);
+  }
+}
