@@ -23,41 +23,58 @@ import { NormalResponse } from '../../../helpers/responseHelper';
 export class InterestController {
   constructor(private readonly interestService: InterestService) {}
 
-  // ✅ CREATE INTEREST
+  //  CREATE INTEREST
+  // @Post('add')
+  // @UseInterceptors(FileInterceptor('image'))
+  // async createInterest(
+  //   @Body() dto: CreateInterestDto,
+  //   @UploadedFile() file: Express.Multer.File,
+  //   @Res() res: Response,
+  // ) {
+  //   const result = await this.interestService.createInterest(dto, file);
+
+  //   return NormalResponse.send(
+  //     res,
+  //     result?.data || {},
+  //     result?.message,
+  //     result?.statusCode
+  //   );
+  // }
+
+
+
+
   @Post('add')
-  @UseInterceptors(FileInterceptor('image'))
-  async createInterest(
-    @Body() dto: CreateInterestDto,
-    @UploadedFile() file: Express.Multer.File,
-    @Res() res: Response,
-  ) {
-    const result = await this.interestService.createInterest(dto, file);
+@UseInterceptors(FileInterceptor('image'))
+async createInterest(
+  @Body() dto: CreateInterestDto,
+  @UploadedFile() file: Express.Multer.File,
+  @Res() res: Response,
+) {
+  // ✅ Add this debug log temporarily
+  console.log('DTO received:', dto);
+  console.log('File received:', file);
 
-    return NormalResponse.send(
-      res,
-      result?.data || {},
-      result?.message || 'Something went wrong',
-      result?.statusCode || 500,
-    );
-  }
+  const result = await this.interestService.createInterest(dto, file);
 
-  // ✅ GET ALL INTERESTS
+  return NormalResponse.send(
+    res,
+    result?.data || {},
+    result?.message,
+    result?.statusCode,
+  );
+}
+
+  // GET ALL INTERESTS
   @Get('list')
   async getAll(
     @Query() query: GetInterestQueryDto,
     @Res() res: Response,
   ) {
     const result = await this.interestService.getInterests(query);
-
-    return NormalResponse.send(
-      res,
-      result?.data || {},
-      result?.message || 'Something went wrong',
-      result?.statusCode || 500,
-    );
+return NormalResponse.send(res, result.data, result.message, result.statusCode);
   }
 
-  // ✅ DELETE INTEREST
   @Delete('delete/:id')
   async deleteInterest(
     @Param('id') id: string,
@@ -68,8 +85,8 @@ export class InterestController {
     return NormalResponse.send(
       res,
       {},
-      result?.message || 'Something went wrong',
-      result?.statusCode || 500,
+      result?.message,
+      result?.statusCode
     );
   }
 }
