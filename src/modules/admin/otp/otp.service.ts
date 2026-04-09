@@ -5,7 +5,7 @@ import { Admin } from '../../../models/Admin';
 import { OtpModel as Otp } from '../../../models/Otp';
 
 import generateJwtToken from '../../../utils/jwtHandler';
-import { sendEmail } from '../../../helpers/emailHelper';
+import sendEmail  from '../../../helpers/emailHelper';
 
 import constant from '../../../constant/index';
 import { MESSAGE } from '../../../constant/admin.messages';
@@ -40,7 +40,7 @@ export class OtpService {
       currentTime - new Date(admin.lastEmailSentAt).getTime() >
         constant.RESEND_WAITING_TIME
     ) {
-      const otp = '123456'; // TODO dynamic
+      const otp = '123456'; 
 
       await sendEmail({
         to: body.email,

@@ -5,7 +5,6 @@ import { Admin } from '../../../models/Admin';
 import { OtpModel as Otp } from '../../../models/Otp';
 
 import generateJwtToken from '../../../utils/jwtHandler';
-import { sendEmail } from '../../../helpers/emailHelper';
 
 import constant from '../../../constant/index';
 import { MESSAGE } from '../../../constant/admin.messages';
