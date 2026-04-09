@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
-import { Admin } from '../../../models/admin.schema';
-import { OtpModel as Otp } from '../../../models/otp.schema';
+import { Admin } from '../../../models/Admin';
+import { OtpModel as Otp } from '../../../models/Otp';
 
 import generateJwtToken from '../../../utils/jwtHandler';
 import { sendEmail } from '../../../helpers/emailHelper';

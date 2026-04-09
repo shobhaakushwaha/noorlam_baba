@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateInterestDto, GetInterestQueryDto } from './interest.dto';
-import { Interest } from '../../../models/interest';
+import { Interest } from '../../../models/Interest';
 import { MESSAGE } from '../../../constant/admin.messages';
  import { FileUploadHelper } from '../../../helpers/fileUploadHelper';
 

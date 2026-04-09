@@ -1,17 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { OtpModel as Otp } from '../../../models/otp.schema'
+import { OtpModel as Otp } from '../../../models/Otp'
 
 @Injectable()
 export class OtpService {
 
   async sendOtp(email: string) {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
-    await Otp.create({ email, otp });
-
-    console.log(`OTP for ${email}: ${otp}`);
-
-    return {
+   await Otp.create({ email, otp });
+   console.log(`OTP for ${email}: ${otp}`);
+return {
       success: true,
       message: 'OTP sent successfully',
     };
