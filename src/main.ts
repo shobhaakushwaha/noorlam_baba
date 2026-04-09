@@ -9,17 +9,13 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors();
-
-  // Global prefix (like /api/v1)
-  app.setGlobalPrefix('api/v1');
+app.setGlobalPrefix('api/v1');
 
   // Connect DB
   await connectDB();
 
-  // Global Response Format
 
-  // Global Error Handling
-  // app.useGlobalFilters(new HttpExceptionFilter());
+
 
   // Start server
   const PORT = process.env.PORT || 5000;

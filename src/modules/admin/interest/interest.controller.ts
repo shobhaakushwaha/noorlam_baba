@@ -13,10 +13,10 @@ import {
 } from '@nestjs/common';
 import { CreateInterestDto, GetInterestQueryDto } from './interest.dto';
 import { InterestService } from './interest.service';
-import { AdminAuthGuard } from '../auth/admin-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { NormalResponse } from '../../../helpers/responseHelper';
+import { AdminAuthGuard } from '../admin-auth.guard';
 
 @Controller('admin/interest')
 @UseGuards(AdminAuthGuard)

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AdminModule } from './modules/admin/admin.module';
 import { APP_GUARD } from '@nestjs/core';
-import { AdminAuthGuard } from './modules/admin/auth/admin-auth.guard';
+import { AdminAuthGuard } from './modules/admin/admin-auth.guard';
 
 // import  UserModule  from './modules/user/user.module';
 // import { SellerModule } from './modules/seller/seller.module';
