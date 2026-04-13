@@ -1,4 +1,3 @@
-import { User } from "src/models";
 
 // admin.messages.ts
 export const MESSAGE = {

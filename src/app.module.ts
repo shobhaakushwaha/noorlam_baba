@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AdminModule } from './modules/admin/admin.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AdminAuthGuard } from './modules/admin/admin-auth.guard';
+import { UserModule } from './modules/user/user.module';
+import { SellerModule } from './modules/seller/seller.module';
 
 // import  UserModule  from './modules/user/user.module';
 // import { SellerModule } from './modules/seller/seller.module';
@@ -11,8 +13,8 @@ import { AdminAuthGuard } from './modules/admin/admin-auth.guard';
 @Module({
   imports: [
     AdminModule,
-    // UserModule,
-    // SellerModule,
+    UserModule,
+    SellerModule,
     // LogisticsModule, 
    ],
    

@@ -1,4 +1,4 @@
-export const USER_MESSAGES = {
+export const MESSAGE = {
   // Common
   INTERNAL_SERVER_ERROR: "Something went wrong, please try again.",
   INVALID_TOKEN: "Token missing or invalid format.",
@@ -15,7 +15,7 @@ export const USER_MESSAGES = {
   ACCOUNT_NOT_VERIFIED: "Your account is not verified.",
   ACCOUNT_VERIFIED: "Account verified successfully.",
   ACCOUNT_BLOCKED: "Your account has been blocked. Please contact support.",
-  USER_REGISTER: "Registration successful.",
+  USER_REGISTER_SUCCESS: "Registration successful.",
   LOGIN_SUCCESS: "Login successful.",
   LOGOUT_SUCCESS: "Logout successful.",
   OTP_SENT: "OTP sent successfully.",

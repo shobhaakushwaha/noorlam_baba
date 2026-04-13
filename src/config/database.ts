@@ -24,7 +24,7 @@ const connectDB = async (): Promise<void> => {
 
     await mongoose.connect(mongoUri);
 
-    console.log(`MongoDB Connected: ${mongoUri}`);
+    console.log(`MongoDB Connected 😀😀😀😀😀😀: ${mongoUri}`);
 
   } catch (error: any) {
     console.error("MongoDB connection failed:", error.message);
